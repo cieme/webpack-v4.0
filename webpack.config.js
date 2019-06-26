@@ -1,4 +1,4 @@
-const path = require("path");//node js 基本包 处理路径
+const path = require("path"); //node js 基本包 处理路径
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     mode: 'production',
@@ -9,8 +9,20 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /.vue$/,
-            loader: ["vue-loader",'style-loader',"css-loader"]
+            test: /\.vue$/,
+            loader: ["vue-loader", 'style-loader', "css-loader"]
+        }, {
+            test: /\.css$/,
+            use: ['vue-style-loader','style-loader', "css-loader"]
+        }, {
+            test: /\.(gif|jp?g|svg|png)$/,
+            use: [{
+                loader: "url-loader",
+                options: {
+                    limit: 1024,
+                    name: '[name]-aaa.[ext]'
+                }
+            }]
         }]
     },
     plugins: [
