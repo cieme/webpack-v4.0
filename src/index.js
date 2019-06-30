@@ -5,6 +5,7 @@ import Vue from "vue/dist/vue";
 import App from "./App.vue"
 import './assets/images/bg.jpg'
 import './assets/css/test.css'
+import './assets/css/test.styl'
 Vue.config.productionTip = false,
   new Vue({
     render: h => h(App)

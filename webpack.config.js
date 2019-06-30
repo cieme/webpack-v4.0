@@ -31,6 +31,9 @@ module.exports = {
             test: /\.js$/,
             loader: 'babel-loader'
         }, {
+            test: /\.jsx$/,
+            loader: 'babel-loader'
+        }, {
             test: /\.css$/,
             use: ['vue-style-loader', 'style-loader', "css-loader"]
         }, {
@@ -42,6 +45,16 @@ module.exports = {
                     name: '[name]-aaa.[ext]'
                 }
             }]
+        }, {
+            test: /\.styl/,
+            use: [
+                'style-loader', "css-loader", {
+                    loader: "postcss-loader",
+                    options: {
+                        sourceMap: true
+                    }
+                }, "stylus-loader"
+            ]
         }]
     },
     plugins: [
@@ -58,7 +71,7 @@ module.exports = {
             inject: true
         })
     ],
-    devtool:"cheap-module-eval-source-map",
+    devtool: "cheap-module-eval-source-map",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
