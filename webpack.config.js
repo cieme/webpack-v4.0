@@ -58,6 +58,7 @@ module.exports = {
             inject: true
         })
     ],
+    devtool:"cheap-module-eval-source-map",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
@@ -67,7 +68,7 @@ module.exports = {
         overlay: {
             warnings: true,
             errors: true,
-        }
+        },
     },
     performance: {
 

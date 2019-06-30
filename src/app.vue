@@ -8,14 +8,14 @@ export default {
   name: "app",
   data() {
     return {
-      text: "return data xxxx这是APP.VUE的文字"
+      text: " plugin"
     };
   }
 };
 </script>
 <style>
 #test {
-  color: red;
+  color: green;
 }
 </style>
 
