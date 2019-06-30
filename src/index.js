@@ -1,11 +1,12 @@
-import Vue from "vue";
-const App=Vue.extend(require('./app.vue').default)
+import Vue from "vue/dist/vue";
+// const App=Vue.extend(require('./App.vue').default)
+// Vue.component("App", require('./App.vue').default);
+// const App = require('./App.vue').default;
+import App from "./App.vue"
 import './assets/images/bg.jpg'
 import './assets/css/test.css'
-const root = document.createElement("div");
-root.id="app"
-document.body.appendChild(root);
-
-new Vue({
-    render: (h) => h(App)
-}).$mount(root)
+Vue.config.productionTip = false,
+  new Vue({
+    render: h => h(App)
+    // components : {App} 
+  }).$mount('#app')

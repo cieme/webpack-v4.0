@@ -1,13 +1,14 @@
 <template>
   <div id="test">
-    <div>{{text}}111</div>
+    <div>{{text}}</div>
   </div>
 </template>
 <script>
 export default {
+  name: "app",
   data() {
     return {
-      text: "abc"
+      text: "return data xxxx这是APP.VUE的文字"
     };
   }
 };

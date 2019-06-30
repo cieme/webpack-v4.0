@@ -7,21 +7,29 @@ const isDev = process.env.NODE_ENV === "development";
 module.exports = {
     /* dev-serve[1] target */
     target: "web",
-    mode: 'production',
+    mode: 'development',
     entry: path.join(__dirname, "src/index.js"),
     output: {
         filename: "bundle.js",
         path: path.join(__dirname, "dist")
     },
     resolve: {
+        extensions: ['.js', '.vue', '.json'],
         alias: {
-          'vue$': 'vue/dist/vue.esm.browser.js' // 用 webpack 1 时需用 'vue/dist/vue.common.js'
+            'vue$': 'vue/dist/vue.common' // 用 webpack 1 时需用 'vue/dist/vue.common.js'
         }
-      },
+    },
     module: {
         rules: [{
             test: /\.vue$/,
-            loader: ["vue-loader", 'style-loader', "css-loader"]
+            use: [ //使用use 完整写法
+                {
+                    loader: 'vue-loader',
+                },
+            ]
+        }, {
+            test: /\.js$/,
+            loader: 'babel-loader'
         }, {
             test: /\.css$/,
             use: ['vue-style-loader', 'style-loader', "css-loader"]
@@ -30,7 +38,7 @@ module.exports = {
             use: [{
                 loader: "url-loader",
                 options: {
-                    limit: 1024,
+                    limit: 8192,
                     name: '[name]-aaa.[ext]'
                 }
             }]
@@ -44,16 +52,27 @@ module.exports = {
                 NODE_ENV: isDev ? '"development"' : '"production"'
             }
         }),
-        new HtmlPlugin()
+        new HtmlPlugin({
+            filename: 'index.html',
+            template: path.resolve(__dirname, 'index.html'),
+            inject: true
+        })
     ],
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         compress: true,
         port: 9000,
         host: "0.0.0.0",
+        hot: true,
         overlay: {
-            errors: true
-        },
+            warnings: true,
+            errors: true,
+        }
+    },
+    performance: {
+
+        hints: false
+
     }
 }
 /* dev-serve[2]  判断一下    cross-env NODE_ENV=production*/
