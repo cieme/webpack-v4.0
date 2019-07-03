@@ -3,9 +3,7 @@ import Vue from "vue/dist/vue";
 // Vue.component("App", require('./App.vue').default);
 // const App = require('./App.vue').default;
 import App from "./App.vue"
-import './assets/images/bg.jpg'
-import './assets/css/test.css'
-import './assets/css/test.styl'
+import './assets/css/global.styl'
 Vue.config.productionTip = false,
   new Vue({
     render: h => h(App)
