@@ -36,7 +36,7 @@ export default {
 section {
   width: 1000px;
   margin: 0 auto;
-  background: rgba(#fff, 0.8);
+  background: rgba(#fff, 0.7);
   box-shadow: 0 0 10px 1px rgba(#000, 0.3);
   border-radius: 10px;
   padding: 20px;

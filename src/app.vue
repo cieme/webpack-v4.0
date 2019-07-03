@@ -38,6 +38,8 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
+  display flex
+  align-items center
 
   #cover {
     width: 100%;
@@ -45,8 +47,9 @@ export default {
     position: absolute;
     z-index: -1;
     background: #fff;
-    opacity: 0.6;
+    // opacity: 0.6;
     background-image: url('./assets/images/bg.jpg');
+    filter blur(5px)
   }
 }
 </style>

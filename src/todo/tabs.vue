@@ -47,6 +47,24 @@ div {
 
 .clear {
   float: right;
+  background: #ff0000 * 0.75;
+  color: #fff;
+  line-height: 30px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.tabs span {
+  margin: 0 20px;
+  cursor: pointer;
+  text-transform uppercase
+  &:hover, &.actived {
+    background: #fff;
+    line-height: 30px;
+    padding: 0 10px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px 1px rgba(#000, 0.2);
+  }
 }
 </style>
 

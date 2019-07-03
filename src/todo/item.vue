@@ -26,10 +26,40 @@ div {
 }
 
 input {
+  vertical-align: middle;
+
+  &[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+
+    &:checked {
+      background: #000;
+    }
+  }
+}
+
+.todo-item {
+  font-size: 24px;
+  color: #444;
 }
 
 .completed {
-  background: red;
+  background: #fff;
+}
+
+button {
+  float: right;
+  height 30px
+  padding 0 20px
+  background rgba(#fff,0.2)
+  border none
+  border-radius 3px
+  border 1px solid #3f3f3f*2
+  margin-top 10px
 }
 </style>
 

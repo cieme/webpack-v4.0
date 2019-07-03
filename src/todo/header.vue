@@ -8,7 +8,7 @@ export default {
   name: "oheader",
   data() {
     return {
-      titlex: "CiemeTodo"
+      titlex: "Cieme\xa0\xa0Todo"
     };
   },
   methods: {
@@ -22,6 +22,12 @@ export default {
 <style lang="stylus" scoped>
 .main-header {
   text-align: center;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  text-transform: uppercase;
+  color: #fff;
 
   h1 {
     font-size: 50px;
