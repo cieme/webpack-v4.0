@@ -14,7 +14,10 @@ export default {
     }
   },
   methods: {
-    deleteTodo() {}
+    deleteTodo() {
+      /* 传递的值 */
+      this.$emit("del", this.todo.id);
+    }
   }
 };
 </script>
@@ -27,6 +30,7 @@ div {
 
 input {
   vertical-align: middle;
+  cursor: pointer;
 
   &[type='checkbox'] {
     width: 20px;
@@ -53,13 +57,13 @@ input {
 
 button {
   float: right;
-  height 30px
-  padding 0 20px
-  background rgba(#fff,0.2)
-  border none
-  border-radius 3px
-  border 1px solid #3f3f3f*2
-  margin-top 10px
+  height: 30px;
+  padding: 0 20px;
+  background: rgba(#fff, 0.2);
+  border: none;
+  border-radius: 3px;
+  border: 1px solid #3f3f3f * 2;
+  margin-top: 10px;
 }
 </style>
 

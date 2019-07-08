@@ -1,6 +1,6 @@
 <template>
   <div class="helper">
-    <span class="left">2 items left</span>
+    <span class="left">{{unShifttodoLength}} items left</span>
     <span class="tabs">
       <span
         v-for="state in states"
@@ -9,7 +9,7 @@
         @click="toggleFilter(state)"
       >{{state}}</span>
     </span>
-    <span class="clear" @click="claarAll">删除全部</span>
+    <span class="clear" @click="clearAll">ClearAllCompleted</span>
   </div>
 </template>
 <script>
@@ -18,6 +18,10 @@ export default {
     filter: {
       type: String,
       required: true
+    },
+    todos: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -25,9 +29,19 @@ export default {
       states: ["all", "active", "completed"]
     };
   },
+  computed: {
+    // Array.filter()
+    unShifttodoLength() {
+      return this.todos.filter(todo => !todo.computed).length;
+    }
+  },
   methods: {
-    claarAll() {},
-    toggleFilter() {}
+    clearAll() {
+      this.$emit("allComplete");
+    },
+    toggleFilter(state) {
+      this.$emit("toggle", state);
+    }
   }
 };
 </script>
@@ -57,13 +71,19 @@ div {
 .tabs span {
   margin: 0 20px;
   cursor: pointer;
-  text-transform uppercase
-  &:hover, &.actived {
+  text-transform: uppercase;
+  padding: 0 10px;
+  line-height: 30px;
+  border-radius: 3px;
+
+  &.actived {
     background: #fff;
-    line-height: 30px;
-    padding: 0 10px;
-    border-radius: 3px;
     box-shadow: 0 0 5px 1px rgba(#000, 0.2);
+  }
+
+  &:hover {
+    background: rgba(#000, 0.5);
+    color: #fff;
   }
 }
 </style>

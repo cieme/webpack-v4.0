@@ -7,27 +7,58 @@
       placeholder="做什么"
       @keyup.enter="addTodo"
     />
-    <item :todo="todo" />
-    <tabs :filter="filter" />
+    <Item :todo="todo" v-for="(todo) in filteredTodos" :key="todo.id" @del="deleteTodo" />
+    <Tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @allComplete="clearAllComplete" />
   </section>
 </template>
 <script>
-import item from "./item";
-import tabs from "./tabs";
+import Item from "./item";
+import Tabs from "./tabs";
+let id = 1;
 export default {
-  components: { item, tabs },
+  components: { Item, Tabs },
   data() {
     return {
-      todo: {
-        id: 0,
-        content: "this is todo",
-        completed: false
-      },
+      todos: [
+        {
+          id: 0,
+          content: "this is todo",
+          completed: false
+        }
+      ],
       filter: "all"
     };
   },
+  computed: {
+    filteredTodos() {
+      if (this.filter === "all") {
+        return this.todos;
+      }
+      const completed = this.filter === "completed";
+      return this.todos.filter(todo => completed === todo.completed);
+    }
+  },
   methods: {
-    addTodo() {}
+    addTodo(e) {
+      this.todos.unshift({
+        id: id++,
+        content: e.target.value.trim(),
+        completed: false /*是否完成 */
+      });
+      e.target.value = "";
+    },
+    deleteTodo(id) {
+      //findIndex fun(currentValue,index,arr)  当条件满足时 返回满足条件的索引 并不会再调用函数
+      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1);
+    },
+    toggleFilter(state) {
+      console.log(state);
+      this.filter = state;
+    },
+    clearAllComplete() {
+      /* 已完成的是 true  取反，完成的被过滤掉 */
+      this.todos = this.todos.filter(todo => !todo.complete);
+    }
   }
 };
 </script>
