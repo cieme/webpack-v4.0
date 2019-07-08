@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlPlugin = require("html-webpack-plugin");
 const webpack = require("webpack")
 /* dev-serve[2][1] */
+// 可能有用 extract-text-webpack-plugin 插件改成了 mini-css-extract-plugin
 const isDev = process.env.NODE_ENV === "development";
 const ExtractPlugin = require('extract-text-webpack-plugin')
 const config = {
