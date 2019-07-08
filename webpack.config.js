@@ -79,7 +79,9 @@ const config = {
             template: path.resolve(__dirname, 'index.html'),
             inject: true
         }),
-        new ExtractPlugin("./styles.css")
+        //webpacl 4.3 包含了 contenthash 关键字段 所以不能使用 contenthash 用md5:contenthash:hex:8 代替
+        // new ExtractPlugin("./styles.[contenthash:8].css")
+        new ExtractPlugin("./styles.[md5:contenthash:hex:8].css")
     ],
     devtool: "cheap-module-eval-source-map",
     devServer: {
