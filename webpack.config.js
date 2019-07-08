@@ -49,17 +49,21 @@ const config = {
                     }
                 }]
             },
-            /*  {
-                        test: /\.styl/,
+            {
+                test: /\.styl/,
+                use: ExtractPlugin
+                    .extract({
+                        fallback: "style-loader",
                         use: [
-                            'style-loader', "css-loader", {
+                            "css-loader", {
                                 loader: "postcss-loader",
                                 options: {
                                     sourceMap: true
                                 }
                             }, "stylus-loader"
                         ]
-                    } */
+                    })
+            }
         ]
     },
     plugins: [
@@ -74,7 +78,8 @@ const config = {
             filename: 'index.html',
             template: path.resolve(__dirname, 'index.html'),
             inject: true
-        })
+        }),
+        new ExtractPlugin("./styles.css")
     ],
     devtool: "cheap-module-eval-source-map",
     devServer: {
@@ -106,39 +111,39 @@ if (isDev) {
     //     // }
     // }
 
-    config.module.rules.push({
-        test: /\.styl/,
-        use: [
-            'style-loader',
-            "css-loader", {
-                loader: "postcss-loader",
-                options: {
-                    sourceMap: true
-                }
-            }, "stylus-loader"
-        ]
-    })
+    // config.module.rules.push({
+    //     test: /\.styl/,
+    //     use: [
+    //         'style-loader',
+    //         "css-loader", {
+    //             loader: "postcss-loader",
+    //             options: {
+    //                 sourceMap: true
+    //             }
+    //         }, "stylus-loader"
+    //     ]
+    // })
 
 
 } else {
-    config.output.filename = "[name].[chunkhash:8].js"
-    config.module.rules({
-        test: /\.styl/,
-        use: ExtractPlugin
-            .extract({
-                fallback: "style-loader",
-                use: [
-                    "css-loader", {
-                        loader: "postcss-loader",
-                        options: {
-                            sourceMap: true
-                        }
-                    }, "stylus-loader"
-                ]
-            })
-    })
-    config.plugins.push(
-        new ExtractPlugin('styles.[contentHash:8].css')
-    )
+    // config.output.filename = "[name].[chunkhash:8].js"
+    // config.module.rules({
+    //     test: /\.styl/,
+    //     use: ExtractPlugin
+    //         .extract({
+    //             fallback: "style-loader",
+    //             use: [
+    //                 "css-loader", {
+    //                     loader: "postcss-loader",
+    //                     options: {
+    //                         sourceMap: true
+    //                     }
+    //                 }, "stylus-loader"
+    //             ]
+    //         })
+    // })
+    // config.plugins.push(
+    //     new ExtractPlugin('styles.[contentHash:8].css')
+    // )
 }
-// module.exports=config;
+module.exports=config;
