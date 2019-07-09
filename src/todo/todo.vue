@@ -57,7 +57,7 @@ export default {
     },
     clearAllComplete() {
       /* 已完成的是 true  取反，完成的被过滤掉 */
-      this.todos = this.todos.filter(todo => !todo.complete);
+      this.todos = this.todos.filter(todo => !todo.completed);
     }
   }
 };

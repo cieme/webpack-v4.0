@@ -6,11 +6,15 @@ const webpack = require("webpack")
 // 可能有用 extract-text-webpack-plugin 插件改成了 mini-css-extract-plugin
 const isDev = process.env.NODE_ENV === "development";
 const ExtractPlugin = require('extract-text-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const config = {
     /* dev-serve[1] target */
     target: "web",
-    mode: 'development',
-    entry: path.join(__dirname, "src/index.js"),
+    mode: 'production',
+    entry: {
+        app: path.join(__dirname, "src/index.js"),
+        vender: ['vue']
+    },
     output: {
         filename: "bundle.[hash:8].js",
         path: path.join(__dirname, "dist")
@@ -78,11 +82,27 @@ const config = {
         new HtmlPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, 'index.html'),
-            inject: true
+            inject: true,/* 注入 */
+            favicon:"./favicon.ico"
         }),
         //webpacl 4.3 包含了 contenthash 关键字段 所以不能使用 contenthash 用md5:contenthash:hex:8 代替
         // new ExtractPlugin("./styles.[contenthash:8].css")
-        new ExtractPlugin("./styles.[md5:contenthash:hex:8].css")
+        new ExtractPlugin("./styles.[md5:contenthash:hex:8].css"),
+        //4弃用
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: "vender"
+        // })
+        // new webpack.optimize.SplitChunksPlugin({
+        //     chunks: "all",
+        //     name: true,
+        //     cacheGroups: {
+        //         vendors: {
+        //             name: "vender",
+        //             chunks: "all",
+        //             minChunks: 2
+        //         }
+        //     }
+        // })
     ],
     devtool: "cheap-module-eval-source-map",
     devServer: {
@@ -97,9 +117,20 @@ const config = {
         },
     },
     performance: {
-
+        /* 如果一个资源超过 250kb，webpack 会对此输出一个警告来通知你 */
         hints: false
 
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: "vendor",
+                    chunks: "initial"
+                }
+            }
+        },
+        runtimeChunk: true
     }
 }
 /* dev-serve[2]  判断一下    cross-env NODE_ENV=production*/
@@ -149,4 +180,4 @@ if (isDev) {
     //     new ExtractPlugin('styles.[contentHash:8].css')
     // )
 }
-module.exports=config;
+module.exports = config;
