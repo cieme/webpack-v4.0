@@ -6,7 +6,9 @@ const webpack = require("webpack")
 // 可能有用 extract-text-webpack-plugin 插件改成了 mini-css-extract-plugin
 const isDev = process.env.NODE_ENV === "development";
 const ExtractPlugin = require('extract-text-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {
+    CleanWebpackPlugin
+} = require('clean-webpack-plugin');
 const config = {
     /* dev-serve[1] target */
     target: "web",
@@ -79,12 +81,23 @@ const config = {
                 NODE_ENV: isDev ? '"development"' : '"production"'
             }
         }),
+        // new HtmlPlugin({
+        //     filename: 'index.html',
+        //     template: path.resolve(__dirname, 'index.html'),
+        //     inject: true,/* 注入 */
+        //     favicon:"./favicon.ico"
+        // }),
         new HtmlPlugin({
-            filename: 'index.html',
+            title: '首页',
             template: path.resolve(__dirname, 'index.html'),
-            inject: true,/* 注入 */
+            filename: 'index.html',
+            minify: true,
+            hash: false,
+            showErrors: true,
+            inject: true,
             favicon:"./favicon.ico"
         }),
+        new CleanWebpackPlugin(),
         //webpacl 4.3 包含了 contenthash 关键字段 所以不能使用 contenthash 用md5:contenthash:hex:8 代替
         // new ExtractPlugin("./styles.[contenthash:8].css")
         new ExtractPlugin("./styles.[md5:contenthash:hex:8].css"),
@@ -104,18 +117,18 @@ const config = {
         //     }
         // })
     ],
-    devtool: "cheap-module-eval-source-map",
-    devServer: {
-        contentBase: path.join(__dirname, "dist"),
-        compress: true,
-        port: 9000,
-        host: "0.0.0.0",
-        hot: true,
-        overlay: {
-            warnings: true,
-            errors: true,
-        },
-    },
+    // devtool: "cheap-module-eval-source-map",
+    // devServer: {
+    //     contentBase: path.join(__dirname, "dist"),
+    //     compress: true,
+    //     port: 9000,
+    //     host: "0.0.0.0",
+    //     hot: true,
+    //     overlay: {
+    //         warnings: true,
+    //         errors: true,
+    //     },
+    // },
     performance: {
         /* 如果一个资源超过 250kb，webpack 会对此输出一个警告来通知你 */
         hints: false
@@ -126,7 +139,8 @@ const config = {
             cacheGroups: {
                 vendor: {
                     name: "vendor",
-                    chunks: "initial"
+                    chunks: "initial",
+                    minChunks: 1
                 }
             }
         },
