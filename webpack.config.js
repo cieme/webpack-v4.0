@@ -12,7 +12,7 @@ const config = {
     mode: 'production',
     entry: {
         app: path.join(__dirname, "src/index.js"),
-        vender: ['vue']
+        vendor: ['vue']
     },
     output: {
         filename: "[name].[chunkhash:8].js",
